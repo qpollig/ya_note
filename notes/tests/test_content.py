@@ -1,6 +1,6 @@
+from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 from django.urls import reverse
-from django.contrib.auth import get_user_model
 
 from notes.models import Note
 
@@ -10,7 +10,6 @@ User = get_user_model()
 class TestContent(TestCase):
     URL_NOTES_LIST = reverse('notes:list')
     URL_NOTES_ADD = reverse('notes:add')
-
 
     @classmethod
     def setUpTestData(cls):
@@ -26,7 +25,10 @@ class TestContent(TestCase):
             slug='slug-001',
             author=cls.author,
         )
-        cls.URL_NOTES_EDIT = reverse('notes:edit', args=(cls.note.slug,))
+        cls.URL_NOTES_EDIT = reverse(
+            'notes:edit',
+            args=(cls.note.slug,)
+        )
 
     def test_notes_list_for_different_users(self):
         users_statuses = (
